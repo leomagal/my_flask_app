@@ -7,13 +7,13 @@ class RegisterForm(Form):
     email = EmailField('Email', [validators.Required()])
     username = StringField('username',
         [validators.Required()
-        #, validators.Lenght(min=4, max=25)
+        , validators.Length(min=4, max=25)
         ])
     password = PasswordField('New Password',
         [validators.Required(),
         validators.EqualTo('confirm', 
         message = 'Passwords muyst match')
-        #, validators.Lenght(min=4, max=80)
+        , validators.Length(min=4, max=80)
         ])
     confirm = PasswordField('Repeat Password', 
         [validators.Required()])
