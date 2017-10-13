@@ -17,7 +17,7 @@ def admin():
         return redirect(url_for('setup'))
     return render_template('blog/admin.html')
 
-@app.route('setup')
+@app.route('/setup')
 def setup():
-    form=SetupForm
-    return render_template('blog/setup.html')
+    form=SetupForm()
+    return render_template('blog/setup.html', form=form)

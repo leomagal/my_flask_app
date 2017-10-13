@@ -4,11 +4,12 @@
 <div class="row">
     <div class="col-md-offset-3 col-md-6">
         
-        <h3>Blog Creation Page</h3>
         {% from "_formhelpers.html" import render_field %}
-        
+        <h3>Blog Creation Page</h3>
+
         <form method="POST" action="{{url_for('setup')}}" role="form">
             {{ form.hidden_tag() }}
+            
             <h4>Blog Information</h4>
             {{ render_field(form.name, class='form-control') }}
             
@@ -18,9 +19,8 @@
             {{ render_field(form.username, class='form-control') }}
             {{ render_field(form.password, class='form-control') }}
             {{ render_field(form.confirm, class='form-control') }}
-            <button type='submit' class='btn btn-default'>Register</button>
+            <button type='submit' class='btn btn-default'>Create Blog</button>
         </form>
-    
     </div>
 </div>
 {% endblock %}

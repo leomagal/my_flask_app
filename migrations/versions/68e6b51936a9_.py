@@ -16,18 +16,21 @@ from sqlalchemy.dialects import mysql
 
 
 def upgrade():
-    op.create_table('author',
-    sa.Column('id', mysql.INTEGER(display_width=11), nullable=False),
-    sa.Column('fullname', mysql.VARCHAR(length=80), nullable=True),
-    sa.Column('email', mysql.VARCHAR(length=35), nullable=True),
-    sa.Column('username', mysql.VARCHAR(length=80), nullable=True),
-    sa.Column('password', mysql.VARCHAR(length=80), nullable=True),
-    sa.Column('is_author', mysql.TINYINT(display_width=1), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    mysql_default_charset='latin1',
-    mysql_engine='InnoDB'
-    )
+    try:
+        op.drop_table('author')
+    except:
+        op.create_table('author',
+        sa.Column('id', mysql.INTEGER(display_width=11), nullable=False),
+        sa.Column('fullname', mysql.VARCHAR(length=80), nullable=False),
+        sa.Column('email', mysql.VARCHAR(length=35), nullable=False),
+        sa.Column('username', mysql.VARCHAR(length=80), nullable=False),
+        sa.Column('password', mysql.VARCHAR(length=80), nullable=False),
+        sa.Column('is_author', mysql.TINYINT(display_width=1), autoincrement=False, nullable=True),
+        sa.PrimaryKeyConstraint('id'),
+        mysql_default_charset='latin1',
+        mysql_engine='InnoDB'
+        )
 
 
 def downgrade():
-    pass
+    op.drop_table('author')
