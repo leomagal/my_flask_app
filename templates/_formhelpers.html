@@ -1,14 +1,16 @@
 {% macro ul_flash(error) %}
     {% with messages = get_flashed_messages() %}
-        {% if messages %}
+        {% if messages or error %}
         <div id="messages" class="text-danger">
             <ul class="flashes">
                 {% if error != None %}
                 <li>{{ error }}</li>
                 {% endif %}
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         </div>
         {% endif %}
