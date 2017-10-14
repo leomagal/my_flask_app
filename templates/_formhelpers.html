@@ -1,3 +1,21 @@
+{% macro ul_flash(error) %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="messages" class="text-danger">
+            <ul class="flashes">
+                {% if error != None %}
+                <li>{{ error }}</li>
+                {% endif %}
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    {% endwith %}
+{% endmacro %}
+
+
 {% macro render_field(field) %}
     <div class="form-group">
         {{ field.label }}

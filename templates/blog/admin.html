@@ -5,17 +5,8 @@
     <div class="col-md-offset-3 col-md-6">
         <h3>Blog Admin</h3>
         
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div id="messages">
-                <ul class="flashes">
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-        {% endwith %}
+        {% from "_formhelpers.html" import ul_flash %}
+        {{ ul_flash(error=None) }}
         
     </div>
 </div>
