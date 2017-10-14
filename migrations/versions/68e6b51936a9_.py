@@ -18,7 +18,7 @@ from sqlalchemy.dialects import mysql
 def upgrade():
     try:
         op.drop_table('author')
-    except:
+    finally:
         op.create_table('author',
         sa.Column('id', mysql.INTEGER(display_width=11), nullable=False),
         sa.Column('fullname', mysql.VARCHAR(length=80), nullable=False),
@@ -33,4 +33,7 @@ def upgrade():
 
 
 def downgrade():
-    op.drop_table('author')
+    try:
+        op.drop_table('author')
+    except:
+        pass

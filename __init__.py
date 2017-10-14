@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
 from sqlalchemy.exc import IntegrityError

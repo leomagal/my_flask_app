@@ -1,5 +1,6 @@
 from my_blog import app
 from my_blog import db
+from my_blog import flush_commit, flush_obj
 from flask import render_template, redirect, url_for, flash
 from sqlalchemy.exc import IntegrityError
 from author.form import RegisterForm
