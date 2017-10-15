@@ -11,6 +11,7 @@ def flush_commit(obj):
     else:
         try:
             db.session.commit()
+            db.session.close()
             error=''
             print("\n ***\nSession Commited\n ***")
             flash("DB Commit Successfull")

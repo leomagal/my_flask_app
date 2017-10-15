@@ -52,12 +52,9 @@ def setup():
             #         return render_template('blog/setup.html', form=form, error=error2)                
             error2 = flush_commit(blog)
             if error2:
-                db.sesssion.rollback()
-                db.sesssion.close()
                 flash("Unexpected Database Error registering Blog")
                 return render_template('blog/setup.html', form=form, error=error2)
             else:
                 flash("Blog created")
-                db.session.close()
                 return redirect(url_for('admin'))
     return render_template('blog/setup.html', form=form, error=error)
