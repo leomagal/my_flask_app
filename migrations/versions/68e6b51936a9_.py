@@ -11,14 +11,16 @@ revision = '68e6b51936a9'
 down_revision = None
 
 from alembic import op
+from my_blog import db
 import sqlalchemy as sa
 from sqlalchemy.dialects import mysql
 
+engine = db.engine
+engine.echo=True
 
 def upgrade():
-    try:
-        op.drop_table('author')
-    finally:
+
+    if not engine.dialect.has_table(engine, 'author'):
         op.create_table('author',
         sa.Column('id', mysql.INTEGER(display_width=11), nullable=False),
         sa.Column('fullname', mysql.VARCHAR(length=80), nullable=False),
@@ -33,7 +35,5 @@ def upgrade():
 
 
 def downgrade():
-    try:
+    if engine.dialect.has_table(engine, 'author'):
         op.drop_table('author')
-    except:
-        pass
