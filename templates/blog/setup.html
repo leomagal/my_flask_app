@@ -22,7 +22,7 @@
             <button type='submit' class='btn btn-default'>Create Blog</button>
         </form>
         {% from "_formhelpers.html" import ul_flash %}
-        {{ ul_flash(error=None) }}
+        {{ ul_flash(error) }}
     </div>
 </div>
 {% endblock %}

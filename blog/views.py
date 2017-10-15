@@ -31,8 +31,8 @@ def setup():
         )
         error = flush_obj(author)
         if error:
-            db.sesssion.rollback()
-            db.sesssion.close()
+            db.session.rollback()
+            db.session.close()
             flash("Error registering admin user")
             return render_template('blog/setup.html', form=form, error=error)
         else:
