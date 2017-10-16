@@ -1,32 +1,41 @@
 from my_blog import app
 from my_blog import db, flush_obj, flush_commit
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, session
 from blog.form import SetupForm
 from blog.models import Blog
 from author.models import Author
+from author.decorators import login_required
+import bcrypt
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello World"
-    
-@app.route('/admin')
-def admin():
     blogs = Blog.query.count()
     if blogs == 0:
         return redirect(url_for('setup'))
+    return "Hello World"
+
+    
+@app.route('/admin')
+@login_required
+def admin():
     return render_template('blog/admin.html')
 
 @app.route('/setup', methods=('GET','POST'))
 def setup():
+    
     form=SetupForm()
     error = None
     error2 = None #, blogs_from_author
     if form.validate_on_submit():
+        #More secure passwords
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(form.password.data, salt)
+        
         author= Author(form.fullname.data,
         form.email.data,
         form.username.data,
-        form.password.data,
+        hashed_password,
         True
         )
         error = flush_obj(author)
@@ -55,6 +64,7 @@ def setup():
                 flash("Unexpected Database Error registering Blog")
                 return render_template('blog/setup.html', form=form, error=error2)
             else:
+                session['username']=form.username.data
                 flash("Blog created")
                 return redirect(url_for('admin'))
     return render_template('blog/setup.html', form=form, error=error)
